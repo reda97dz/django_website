@@ -1,0 +1,13 @@
+{% extends "workout/base.html" %}
+{% block title %}{{ run.title }}{% endblock %}
+{% block content %}
+ <h1>{{ run.title }}</h1>
+ <p>
+ Finished {{ run.date }}
+ </p>
+ {{ run.distance }}
+ 
+ {{ run.duration }}
+ 
+ {{ run.pace }}
+{% endblock %}

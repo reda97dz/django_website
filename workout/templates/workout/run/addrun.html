@@ -1,0 +1,17 @@
+{% extends 'workout/base.html' %}
+
+
+{% block title %}
+    Add a new run
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Add run</h1>
+    <form method="post" class="uniForm">
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit" value="Add new run">
+    </form>
+{% endblock %}
+    
