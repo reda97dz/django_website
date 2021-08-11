@@ -6,3 +6,4 @@ Simple CRUD website using Python / Django 3.0 to organize my runs. Heavily inspi
 - [ ] Add styling
 - [ ] Use React for front-end
 - [ ] Add data visualization
+- [ ] Add user authentification
