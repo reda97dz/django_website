@@ -8,5 +8,5 @@ def convert_to_minutes(value):
     return '{}:{:02d}'.format(int(value),int(seconds*60))
 
 @register.filter
-def two_d_int(value):
+def leading_zero(value):
     return '{:02d}'.format(value)

@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'habit_tracker.urls'
+ROOT_URLCONF = 'django_website.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'habit_tracker.wsgi.application'
+WSGI_APPLICATION = 'django_website.wsgi.application'
 
 
 # Database

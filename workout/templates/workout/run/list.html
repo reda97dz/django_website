@@ -14,7 +14,7 @@
     {{ year }}
     
     {% if month %}
-      / {{ month|two_d_int }}
+      / {{ month|leading_zero }}
     {% endif %}
       
   </h2>
