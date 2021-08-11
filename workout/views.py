@@ -3,8 +3,14 @@ from .models import Run
 from .forms import RunForm
 
 # Create your views here.
-def run_list(request):
+def run_list(request, year=None, month=None):
     runs = Run.objects.all()
+    
+    if year:
+        runs = Run.objects.filter(date__year=year)
+    if month:
+        runs = Run.objects.filter(date__year=year,date__month=month)
+    
     return render(request,
                   'workout/run/list.html',
                   {'runs': runs})

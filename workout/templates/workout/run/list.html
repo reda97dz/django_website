@@ -15,7 +15,7 @@
     
     {% for run in runs %}
       <tr>
-        <th>{{ run.date }}</th>
+        <th>{{ run.date|date:"d-m-y" }}</th>
         <th><a href="{{ run.get_absolute_url }}">{{ run.name }}</a></th>
         <th>{{ run.distance }} km</th>
         <th>{{ run.duration|convert_to_minutes }}</th>
