@@ -42,3 +42,21 @@ def delete_run(request, pk):
     return render(request, 
                   'workout/run/deleterun.html', 
                   {'run': run})
+
+def edit_run(request, pk):
+    run = Run.objects.get(id=pk)
+    
+    if request.method == 'POST':
+        form = RunForm(request.POST, instance=run)
+        if form.is_valid():
+            pace = float(form.cleaned_data['duration'])/float(form.cleaned_data['distance'])
+            edit_run = form.save(commit=False)
+            edit_run.pace = pace
+            edit_run.save()
+        return redirect('/workout/run/{}'.format(edit_run.id))
+    else:
+        form = RunForm(instance=run)
+    
+    return render(request,
+                  'workout/run/editrun.html',
+                  {'form': form})

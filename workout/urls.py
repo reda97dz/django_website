@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.run_list, name='run_list'),
     path('run/<str:pk>/', views.run_details, name='run_details'),
     path('add_new_run/', views.add_run, name='add_run'),
-    path('run/<str:pk>/delete/', views.delete_run, name='delete_run')
+    path('run/<str:pk>/delete/', views.delete_run, name='delete_run'),
+    path('run/<str:pk>/edit/', views.edit_run, name='edit_run')
 ]
