@@ -1,5 +1,5 @@
 {% extends "workout/base.html" %}
-
+{% load workout_tags %}
 {% block title %}My Workout{% endblock %}
 
 {% block content %}
@@ -18,8 +18,8 @@
         <th>{{ run.date }}</th>
         <th><a href="{{ run.get_absolute_url }}">{{ run.name }}</a></th>
         <th>{{ run.distance }} km</th>
-        <th>{{ run.duration }} min</th>
-        <th>{{ run.pace }} min/km</th>
+        <th>{{ run.duration|convert_to_minutes }}</th>
+        <th>{{ run.pace|convert_to_minutes }} min/km</th>
       </tr>
     {% endfor %}
       
