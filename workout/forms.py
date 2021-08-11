@@ -1,5 +1,6 @@
 from django import forms
 from .models import Run
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
