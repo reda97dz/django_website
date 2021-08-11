@@ -1,15 +1,16 @@
 {% extends "workout/base.html" %}
+{% load workout_tags %}
 {% block title %}{{ run.title }}{% endblock %}
 {% block content %}
- <h1>{{ run.title }}</h1>
+ <h1>{{ run.name }}</h1>
  <p>
- Finished {{ run.date }}
+ Done on {{ run.date }}
  </p>
- {{ run.distance }}
+ {{ run.distance }} km
  
- {{ run.duration }}
+ {{ run.duration|convert_to_minutes}}
  
- {{ run.pace }}
+ {{ run.pace|convert_to_minutes }} min/mk
 
  <a href="{% url 'workout:delete_run' run.id %}">Delete Run</a>
 <a href="{% url 'workout:edit_run' run.id %}">Edit Run</a>
