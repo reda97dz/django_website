@@ -13,7 +13,9 @@ def run_list(request, year=None, month=None):
     
     return render(request,
                   'workout/run/list.html',
-                  {'runs': runs})
+                  {'runs': runs,
+                   'year': year,
+                   'month': month})
 
 def run_details(request, pk):
     run = Run.objects.get(id=pk)

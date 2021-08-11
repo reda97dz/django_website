@@ -10,5 +10,5 @@ urlpatterns = [
     path('run/<str:pk>/delete/', views.delete_run, name='delete_run'),
     path('run/<str:pk>/edit/', views.edit_run, name='edit_run'),
     path('date/<int:year>/', views.run_list, name='run_list_by_year'),
-    path('date/<int:year>/<int:month>', views.run_list, name='run_list_by_month'),
+    path('date/<int:year>/<int:month>', views.run_list, name='run_list_by_year_month'),
 ]

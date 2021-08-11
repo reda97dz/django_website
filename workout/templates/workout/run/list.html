@@ -1,9 +1,24 @@
 {% extends "workout/base.html" %}
 {% load workout_tags %}
+
 {% block title %}My Workout{% endblock %}
+
+
+  
 
 {% block content %}
   <h1>My Blog</h1>
+  
+{% if year %}
+  <h2>
+    {{ year }}
+    
+    {% if month %}
+      / {{ month|two_d_int }}
+    {% endif %}
+      
+  </h2>
+{% endif %}
   <table>
     <tr>
       <th>Date</th>
