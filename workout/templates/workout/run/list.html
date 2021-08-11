@@ -4,14 +4,25 @@
 
 {% block content %}
   <h1>My Blog</h1>
-  {% for run in runs %}
-    <h2>
-      <a href="{{ run.get_absolute_url }}">
-        {{ run.name }}
-      </a>
-    </h2>
-    <p>
-      Accomplished {{ run.date }}
-    </p>
-  {% endfor %}
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Activity</th>
+      <th>Distance</th>
+      <th>Duration</th>
+      <th>Pace</th>
+    </tr>
+    
+    {% for run in runs %}
+      <tr>
+        <th>{{ run.date }}</th>
+        <th><a href="{{ run.get_absolute_url }}">{{ run.name }}</a></th>
+        <th>{{ run.distance }} km</th>
+        <th>{{ run.duration }} min</th>
+        <th>{{ run.pace }} min/km</th>
+      </tr>
+    {% endfor %}
+      
+  </table>
+  <a href="{% url 'workout:add_run' %}">Add new run</a>
 {% endblock %}

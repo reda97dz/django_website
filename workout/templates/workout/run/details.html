@@ -10,4 +10,7 @@
  {{ run.duration }}
  
  {{ run.pace }}
+
+ <a href="{% url 'workout:delete_run' run.id %}">Delete Run</a>
+
 {% endblock %}

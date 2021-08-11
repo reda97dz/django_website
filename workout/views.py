@@ -25,10 +25,20 @@ def add_run(request):
             new_run = form.save(commit=False)
             new_run.pace = pace
             new_run.save()
-        return redirect('/workout')
+        return redirect('/workout/run/{}'.format(new_run.id))
     else:
         form = RunForm()
     
     return render(request, 
                   'workout/run/addrun.html',
                   {'form':form})
+
+def delete_run(request, pk):
+    run = Run.objects.get(id=pk)
+    if request.method == 'POST':
+        run.delete()
+        return redirect('/workout/')
+    
+    return render(request, 
+                  'workout/run/deleterun.html', 
+                  {'run': run})

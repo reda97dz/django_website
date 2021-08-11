@@ -1,0 +1,8 @@
+<p>Are you sure you want to delete "{{run.name}} from {{ run.date }}"?</p>
+
+<a href="{% url 'workout:run_list' %}" >Cancel</a>
+
+<form method="POST" action="">
+	{% csrf_token %}
+	<input type="submit" name="Confirm">
+</form>
