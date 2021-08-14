@@ -1,8 +1,50 @@
 from django.shortcuts import render, redirect
 from .models import Run
-from .forms import RunForm
+from .forms import RunForm, LoginForm, UserRegistrationForm
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request,
+                                username=cd['username'],
+                                password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponse('Authenticated Successfuly')
+                else:
+                    return HttpResponse('Disabled Account')
+            else:
+                return HttpResponse('Invalid Input')
+    else:
+       form = LoginForm()     
+    
+    return render(request, 'workout/login.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save() 
+            return render(request,
+                          'workout/register_done.html',
+                          {'new_user': new_user})   
+    else:
+        user_form = UserRegistrationForm()
+    return render(request,
+                  'workout/register.html',
+                  {'user_form': user_form})
+
+@login_required
 def run_list(request, year=None, month=None):
     runs = Run.objects.all()
     
@@ -17,12 +59,14 @@ def run_list(request, year=None, month=None):
                    'year': year,
                    'month': month})
 
+@login_required
 def run_details(request, pk):
     run = Run.objects.get(id=pk)
     return render(request,
                   'workout/run/details.html',
                   {'run': run})
 
+@login_required
 def add_run(request):
     if request.method == 'POST':
         form = RunForm(data=request.POST)
@@ -41,6 +85,7 @@ def add_run(request):
                   'workout/run/addrun.html',
                   {'form':form})
 
+@login_required
 def delete_run(request, pk):
     run = Run.objects.get(id=pk)
     if request.method == 'POST':
@@ -51,6 +96,7 @@ def delete_run(request, pk):
                   'workout/run/deleterun.html', 
                   {'run': run})
 
+@login_required
 def edit_run(request, pk):
     run = Run.objects.get(id=pk)
     
