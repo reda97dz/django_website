@@ -2,11 +2,15 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import Run
 from .forms import RunForm, LoginForm, UserRegistrationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+def user_logout(request):
+    logout(request)
+    # return HttpResponseRedirect('login/')
 
 def user_login(request):
     if request.user.is_authenticated:

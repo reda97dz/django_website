@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -7,7 +7,7 @@ app_name = 'workout'
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page=reverse_lazy('workout:login')), name='logout'),
     
     path('', views.run_list, name='run_list'),
     path('run/<str:pk>/', views.run_details, name='run_details'),
