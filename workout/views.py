@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import Run
 from .forms import RunForm, LoginForm, UserRegistrationForm
@@ -8,24 +9,28 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request,
-                                username=cd['username'],
-                                password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Authenticated Successfuly')
-                else:
-                    return HttpResponse('Disabled Account')
-            else:
-                return HttpResponse('Invalid Input')
-    else:
-       form = LoginForm()     
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     
+    else:
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                cd = form.cleaned_data
+                user = authenticate(request,
+                                    username=cd['username'],
+                                    password=cd['password'])
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                        return HttpResponse('Authenticated Successfuly')
+                    else:
+                        return HttpResponse('Disabled Account')
+                else:
+                    return HttpResponse('Invalid Input')
+        else:
+            form = LoginForm()    
+        
     return render(request, 'workout/login.html', {'form': form})
 
 def register(request):
@@ -46,7 +51,6 @@ def register(request):
 
 @login_required
 def run_list(request, year=None, month=None):
-    print(request.user)
     runs = Run.objects.filter(user=request.user)
     
     if year:
