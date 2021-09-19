@@ -10,7 +10,7 @@
  
  {{ run.duration|convert_to_minutes}}
  
- {{ run.pace|convert_to_minutes }} min/mk
+ {{ run.pace|convert_to_minutes }} min/km
 
  <a href="{% url 'workout:delete_run' run.id %}">Delete Run</a>
 <a href="{% url 'workout:edit_run' run.id %}">Edit Run</a>

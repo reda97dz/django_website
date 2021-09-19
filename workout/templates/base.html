@@ -6,11 +6,11 @@
 </head>
 <body>
     <div>
-        {% block content %}
-        {% endblock %}
+        <h2>Hello {{ user.username }}</h2>
     </div>
     <div>
-        <h2>Hello {{ user.username }}</h2>
+        {% block content %}
+        {% endblock %}
     </div>
 </body>
 </html>

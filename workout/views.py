@@ -34,6 +34,8 @@ def user_login(request):
     return render(request, 'workout/login.html', {'form': form})
 
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -64,14 +66,14 @@ def run_list(request, year=None, month=None):
                    'year': year,
                    'month': month})
 
-@login_required
+@login_required(login_url='login/')
 def run_details(request, pk):
-    run = Run.objects.get(id=pk)
+    run = Run.objects.get(id=pk, user=request.user)
     return render(request,
                   'workout/run/details.html',
                   {'run': run})
 
-@login_required
+@login_required(login_url='login/')
 def add_run(request):
     if request.method == 'POST':
         form = RunForm(data=request.POST)
@@ -81,8 +83,9 @@ def add_run(request):
             pace = float(duration)/float(distance)
             new_run = form.save(commit=False)
             new_run.pace = pace
+            new_run.user = request.user
             new_run.save()
-        return redirect('/workout/run/{}'.format(new_run.id))
+        return redirect('/run/{}'.format(new_run.id))
     else:
         form = RunForm()
     
@@ -90,9 +93,9 @@ def add_run(request):
                   'workout/run/addrun.html',
                   {'form':form})
 
-@login_required
+@login_required(login_url='login/')
 def delete_run(request, pk):
-    run = Run.objects.get(id=pk)
+    run = Run.objects.get(id=pk,user=request.user)
     if request.method == 'POST':
         run.delete()
         return redirect('/workout/')
@@ -101,7 +104,7 @@ def delete_run(request, pk):
                   'workout/run/deleterun.html', 
                   {'run': run})
 
-@login_required
+@login_required(login_url='login/')
 def edit_run(request, pk):
     run = Run.objects.get(id=pk)
     
