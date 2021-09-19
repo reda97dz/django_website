@@ -19,16 +19,18 @@ class LoginForm(forms.Form):
     password = forms.CharField()
 
 
-class UserRegistrationForm(forms.Form):
+class UserRegistrationForm(forms.Form, forms.ModelForm):
+    username = forms.CharField()
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username', 'firstname', 'email')
+        fields = ('username', 'email', 'password')
     
     def clean_password(self):
-        cd = self.cleaned_data
+        cd = self.data
+        print(cd)
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('passwords don\'t match!')
         return cd['password2']

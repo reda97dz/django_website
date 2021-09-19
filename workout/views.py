@@ -46,7 +46,8 @@ def register(request):
 
 @login_required
 def run_list(request, year=None, month=None):
-    runs = Run.objects.all()
+    print(request.user)
+    runs = Run.objects.filter(user=request.user)
     
     if year:
         runs = Run.objects.filter(date__year=year)
