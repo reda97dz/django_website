@@ -23,7 +23,7 @@ def user_login(request):
                 if user is not None:
                     if user.is_active:
                         login(request, user)
-                        return HttpResponse('Authenticated Successfuly')
+                        return HttpResponseRedirect('/')
                     else:
                         return HttpResponse('Disabled Account')
                 else:
@@ -49,7 +49,7 @@ def register(request):
                   'workout/register.html',
                   {'user_form': user_form})
 
-@login_required
+@login_required(login_url='login/')
 def run_list(request, year=None, month=None):
     runs = Run.objects.filter(user=request.user)
     
