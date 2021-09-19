@@ -2,16 +2,32 @@
 {% load workout_tags %}
 {% block title %}{{ run.title }}{% endblock %}
 {% block content %}
- <h1>{{ run.name }}</h1>
- <p>
- Done on {{ run.date }} by {{user.username}}
- </p>
- {{ run.distance }} km
- 
- {{ run.duration|convert_to_minutes}}
- 
- {{ run.pace|convert_to_minutes }} min/km
 
- <a href="{% url 'workout:delete_run' run.id %}">Delete Run</a>
-<a href="{% url 'workout:edit_run' run.id %}">Edit Run</a>
-{% endblock %}
+<div class="card-header">
+    {{ run.name }} - Completed on {{ run.date }}
+</div>
+
+<div class="card-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h1 class="display-1">{{ run.distance }}</h1>
+                <p class='lead'>distance (km)</p>
+            </div>
+            <div class="col-md-3">
+                <h1 class="display-1">{{ run.pace|convert_to_minutes }}</h1>
+                <p class="lead">pace (min/km)</p>
+            </div>
+            <div class="col-md-3">
+                <h1 class="display-1">{{ run.duration|convert_to_minutes}}</h1>
+                <p class="lead">duration</p>
+            </div>
+            <div class='col-md-3 text-center'>
+                <a href="{% url 'workout:edit_run' run.id %}" class="btn btn-outline-secondary">Edit Run</a>
+                <a href="{% url 'workout:delete_run' run.id %}" class="btn btn-outline-danger">Delete Run</a>
+            </div>
+        </div>
+    </div>
+       
+</div>
+ {% endblock %}

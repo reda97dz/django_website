@@ -7,37 +7,43 @@
   
 
 {% block content %}
-  <h1>My Runs</h1>
-  
-{% if year %}
-  <h2>
-    {{ year }}
+
+  <div class="card-header">
+    {% if year %}
+      Runs from {{ year }}
     
-    {% if month %}
-      / {{ month|leading_zero }}
+      {% if month %}
+        / {{ month|leading_zero }}
     {% endif %}
-      
-  </h2>
-{% endif %}
-  <table>
-    <tr>
-      <th>Date</th>
-      <th>Activity</th>
-      <th>Distance</th>
-      <th>Duration</th>
-      <th>Pace</th>
-    </tr>
     
-    {% for run in runs %}
-      <tr>
-        <th>{{ run.date|date:"d-m-y" }}</th>
-        <th><a href="{{ run.get_absolute_url }}">{{ run.name }}</a></th>
-        <th>{{ run.distance }} km</th>
-        <th>{{ run.duration|convert_to_minutes }}</th>
-        <th>{{ run.pace|convert_to_minutes }} min/km</th>
-      </tr>
-    {% endfor %}
-      
-  </table>
-  <a href="{% url 'workout:add_run' %}">Add new run</a>
+    {% else %}
+      Latest runs
+    {% endif %}
+  </div>
+  
+  <div class="card-body">
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Activity</th>
+          <th>Distance</th>
+          <th>Duration</th>
+          <th>Pace</th>
+        </tr>    
+      </thead>
+      <tbody>
+        {% for run in runs %}
+        <tr>
+          <th>{{ run.date|date:"d-m-y" }}</th>
+          <th><a href="{{ run.get_absolute_url }}">{{ run.name }}</a></th>
+          <th>{{ run.distance }} km</th>
+          <th>{{ run.duration|convert_to_minutes }}</th>
+          <th>{{ run.pace|convert_to_minutes }} min/km</th>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <a class="btn btn-outline-primary" href="{% url 'workout:add_run' %}">Add new run</a>
+  </div>
 {% endblock %}
