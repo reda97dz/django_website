@@ -1,17 +1,32 @@
-{% extends 'base.html' %}
 
 
-{% block title %}
-    Add a new run
-{% endblock title %}
-
-
-{% block content %}
-    <h1>Add run</h1>
-    <form method="post" class="uniForm">
-        {{ form }}
-        {% csrf_token %}
-        <input type="submit" value="Add new run">
-    </form>
-{% endblock %}
     
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load workout_tags %}
+{% block title %}{{ run.title }}{% endblock %}
+{% block content %}
+<div class="card-header">
+    Add New Run
+</div>
+<div class="card-body">
+	
+<form class="align-items-center" method="POST" action="">
+	{% csrf_token %}
+
+	<!-- {{form}} -->
+	{% for field in form.visible_fields %}
+		<div class="form-group">
+			{{ field.label_tag }}
+			{% render_field field class="form-control" %}
+		</div>
+	{% endfor %}
+
+	<input class="btn btn-outline-primary" type="submit" name="Add New Run">
+	
+	
+</form>
+
+</div>
+
+ {% endblock %}

@@ -119,10 +119,11 @@ def edit_run(request, pk):
             edit_run = form.save(commit=False)
             edit_run.pace = pace
             edit_run.save()
-        return redirect('/workout/run/{}'.format(edit_run.id))
+        return redirect('/run/{}'.format(edit_run.id))
     else:
         form = RunForm(instance=run)
     
     return render(request,
                   'workout/run/editrun.html',
-                  {'form': form})
+                  {'form': form,
+                   'run': run})
